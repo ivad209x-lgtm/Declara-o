@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08060c">
+  <title>Para Clara ❤️</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh; overflow: hidden; display: grid; place-items: center;
+      background: radial-gradient(ellipse at center, #241020 0%, #100912 42%, #050408 100%);
+      color: #fff; font-family: Georgia, "Times New Roman", serif;
+    }
+    .stars, .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+    .star {
+      position: absolute; width: 2px; height: 2px; border-radius: 50%;
+      background: #ffd6e8; opacity: .65; animation: twinkle 2.8s infinite ease-in-out;
+    }
+    @keyframes twinkle { 50% { opacity: .15; transform: scale(.55); } }
+    .heart {
+      position: absolute; bottom: -40px; color: #ff83b6; opacity: 0;
+      animation: floatUp linear forwards; text-shadow: 0 0 12px #ff4e9b;
+    }
+    @keyframes floatUp {
+      10% { opacity: .75; } 100% { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
+    }
+    main {
+      position: relative; z-index: 2; width: min(92vw, 620px); padding: 28px 20px;
+      text-align: center;
+    }
+    .eyebrow { color: #ffc2dc; letter-spacing: 4px; text-transform: uppercase; font: 12px Arial, sans-serif; }
+    h1 { margin: 14px 0 8px; color: #ffd0e3; font-size: clamp(34px, 9vw, 58px); font-weight: 400; text-shadow: 0 0 24px #ff4e9b88; }
+    .intro { color: #e8cbd9; font: 16px/1.6 Arial, sans-serif; margin: 0 auto 26px; }
+    button {
+      border: 1px solid #ff9ac4; border-radius: 999px; padding: 15px 25px;
+      color: #fff; background: linear-gradient(135deg, #d93680, #8d286b);
+      font: 600 15px Arial, sans-serif; letter-spacing: .3px; cursor: pointer;
+      box-shadow: 0 0 25px #ff4e9b55; transition: transform .2s, box-shadow .2s;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 0 34px #ff4e9b99; }
+    button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+    .surprise { display: none; animation: appear 1.2s ease both; }
+    .surprise.show { display: block; }
+    @keyframes appear { from { opacity: 0; transform: translateY(15px) scale(.97); } to { opacity: 1; transform: none; } }
+    .heart-wrap { width: min(75vw, 340px); margin: 10px auto 0; filter: drop-shadow(0 0 18px #ff3f91aa); }
+    svg { width: 100%; overflow: visible; }
+    .heart-line {
+      fill: none; stroke: #ff79b2; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 3.2s ease forwards;
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .message { margin: -8px auto 0; max-width: 490px; color: #ffe4ef; font-size: clamp(22px, 5.5vw, 31px); line-height: 1.45; text-shadow: 0 0 16px #ff5c9c66; }
+    .message strong { display: block; color: #ff9fc7; font-size: 1.18em; font-weight: 400; margin-bottom: 8px; }
+    .signature { color: #e8bfd2; font: 13px Arial, sans-serif; margin-top: 22px; letter-spacing: 1px; }
+    .hidden { display: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <main>
+    <section id="welcome">
+      <div class="eyebrow">Uma surpresa para você</div>
+      <h1>Clara ❤️</h1>
+      <p class="intro">Preparei uma coisinha especial.<br>Toque no botão para descobrir.</p>
+      <button id="openButton" type="button">Tenho uma surpresa para você ✨</button>
+    </section>
+
+    <section class="surprise" id="surprise" aria-live="polite">
+      <div class="eyebrow">Feito com carinho</div>
+      <div class="heart-wrap">
+        <svg viewBox="0 0 320 290" role="img" aria-label="Um coração desenhado em rosa">
+          <path class="heart-line" d="M160 265 C135 238 25 164 25 88 C25 18 111 5 160 76 C209 5 295 18 295 88 C295 164 185 238 160 265 Z"/>
+        </svg>
+      </div>
+      <p class="message">
+        <strong>Te amoo, Clara!</strong>
+        Você é tudo pra mim, e sem você eu não sei viver. ❤️
+      </p>
+      <p class="signature">Com muito carinho, para você. 💗</p>
+    </section>
+  </main>
+  <script>
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 65; i++) {
+      const s = document.createElement('span');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = (Math.random() * 3) + 's';
+      stars.appendChild(s);
+    }
+    const hearts = document.getElementById('hearts');
+    function floatingHeart() {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = Math.random() > .5 ? '♥' : '♡';
+      h.style.left = Math.random() * 100 + '%';
+      h.style.fontSize = (14 + Math.random() * 22) + 'px';
+      h.style.animationDuration = (7 + Math.random() * 6) + 's';
+      hearts.appendChild(h);
+      setTimeout(() => h.remove(), 14000);
+    }
+    setInterval(floatingHeart, 650);
+    document.getElementById('openButton').addEventListener('click', () => {
+      document.getElementById('welcome').classList.add('hidden');
+      document.getElementById('surprise').classList.add('show');
+      for (let i = 0; i < 18; i++) setTimeout(floatingHeart, i * 90);
+    });
+  </script>
+</body>
+</html>
